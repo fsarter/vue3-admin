@@ -70,7 +70,7 @@ Let's start our configuration based on previous steps of the actual project, whi
 ### Install Tailwind CSS
 ```powershell
 npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init
+npx tailwindcss init -p
 ```
 After these commands, Tailwind CSS config file `tailwind.config.js` and postcss config file `postcss.config.js` will be created.
 ### Configure your template paths
@@ -114,5 +114,6 @@ Edit `App.vue`, add a `h1` tag, show some messages.
   ...
 </template>
 ```
-Run `npm run dev`
-![](tailwind-init-page.png)
+Run `npm run dev`, and open `http://localhost:3000/` in your browser. You can see a text saying `Hello Tailwind CSS` with larger font, underline and red color.
+![](tailwindcss-preview.png)
+Here, you had completed most of configuration work, and can start your development journey.
