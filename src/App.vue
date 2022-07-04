@@ -1,13 +1,11 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import MainLayout from "./layouts/Main.vue";
 </script>
 
 <template>
-  <h1 class="underline text-red-500 text-3xl">Hello Tailwind CSS</h1>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <MainLayout>
+    <h1 class="underline text-red-500 text-3xl">Main Layout</h1>
+  </MainLayout>
 </template>
 
 <style>
@@ -17,6 +15,9 @@ import HelloWorld from './components/HelloWorld.vue'
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 </style>

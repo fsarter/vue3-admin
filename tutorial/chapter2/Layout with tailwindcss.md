@@ -39,7 +39,7 @@ import MainLayout from "./layouts/Main.vue";
 ```
 
 Now, you can execute `npm run dev` again and get page preview like this.
-
+![](2-1.png)<p align = "center">2-1</p>
 
 ## Add top navigation bar
 Create file `NavBar.vue` in `components`, and edit the file content.
@@ -78,6 +78,7 @@ export default {
 </script>
 ```
 After saved these changes, there will be an issue, that the top bar does not sticky on the top, there is a huge margin between them.
+![](2-2.png)<p align = "center">2-2</p>
 
 You should comment the line `margin-top: 60px;` in the file `src/App.vue` to disable the margin.
 
@@ -88,7 +89,7 @@ You should comment the line `margin-top: 60px;` in the file `src/App.vue` to dis
 ...
 ```
 Now the page looks well, and be divided into two rows.
-
+![](2-3.png)<p align = "center">2-3</p>
 ## Divide an element into two columns
 Before we create left side menu component, we should split the second row of current layout into two columns.We can using three `div` elements to achieve this.
 
@@ -105,6 +106,7 @@ Before we create left side menu component, we should split the second row of cur
     </div>
   </div>
 </template>
+...
 ```
 class `h-screen` denote `height: 100vh;`, that makes the container element taking all the space below the top navigation bar;
 
@@ -113,7 +115,7 @@ class `w-48` set the height of the left side menu to `width: 12rem; /* 192px */`
 class `w-full` makes the `slot` taking all the remaining space on the right side.
 
 Now, we can preview the page,which had been divided into three parts, and looks well.
-
+![](2-4.png)<p align = "center">2-4</p>
 ## Add menu component
 Create file `Menu.vue` in `components`, and edit the content.
 
@@ -148,3 +150,40 @@ export default {
 </script>
 ```
 Preview the page again, layout do not change, we just create a `Menu` component and wrap all the left side menu code there.
+
+## Unexpected scroll bar
+You may noticed there is a vertical scroll bar, even we do not have much content on page yet.
+![](2-5.png)<p align = "center">2-5</p>
+This is because we use `h-screen` class in the `<div>` tag which set the height of the element `100vh` without setting the root `div` height. So page content overflow vertically.
+
+Let's fixed it.
+
+We should set root `#app` element's style in `App.vue`.
+
+**`src/App.vue`**
+```css
+#app {
+  ...
+  /* margin-top: 60px; */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+```
+![](2-6.png)<p align = "center">2-6</p>
+Now the vertical scroll bar disappear, that's it.
+
+Finally, change unnecessary `h-screen` to `h-full`.
+**`src/layouts/Main.vue`**
+```html
+<template>
+  <NavBar />
+  <div class="flex h-full">
+    <Menu />
+    <div class="flex w-full justify-center items-center border">
+      <slot />
+    </div>
+  </div>
+</template>
+...
+```
