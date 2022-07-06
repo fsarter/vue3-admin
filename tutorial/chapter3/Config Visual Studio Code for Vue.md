@@ -6,14 +6,17 @@ If you use other IDE than `VS Code`, you can skip this chapter.
 **Volar**
 
 A fast Vue language support extension, provide vue code check ,code highlight, intellisence etc.
+![](Volar.png)<p align = "center">Volar</p>
 
 **Prettier**
 
 A very easy to use code format tool for web development, which support Typescript, Javascript, Html, CSS and so on.
+![](Prettier.png)<p align = "center">Prettier</p>
 
 **ESLint**
 
 With this tool , you can check Javascript grammar mistakes and fix it automatically, it support Typescript also.
+![](ESLint.png)<p align = "center">ESLint</p>
 
 ## Install Necessary Packages of Prettier and ESLint
 ```
