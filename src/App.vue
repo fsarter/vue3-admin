@@ -1,10 +1,14 @@
 <script setup>
-import MainLayout from "./layouts/Main.vue";
+import MainLayout from './layouts/Main.vue';
 </script>
 
 <template>
   <MainLayout>
     <h1 class="underline text-red-500 text-3xl">Main Layout</h1>
+    <SvgIcon
+      name="keyboard_arrow_down_FILL0_wght400_GRAD0_opsz48"
+      class="text-red-500"
+    />
   </MainLayout>
 </template>
 
