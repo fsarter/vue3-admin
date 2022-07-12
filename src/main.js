@@ -6,4 +6,5 @@ import SvgIcon from './components/SvgIcon.vue';
 
 const app = createApp(App); // name the instance for subsequent config
 app.component('SvgIcon', SvgIcon); // register component globally
+app.config.unwrapInjectedRef = true;
 app.mount('#app');

@@ -1,5 +1,8 @@
 <template>
-  <div class="my-menu-item" @click="clickMenuItem()">
+  <div
+    :class="`my-menu-item ${active ? 'active' : ''}`"
+    @click="clickMenuItem()"
+  >
     <div class="flex">
       <div
         :class="`flex ${
@@ -32,6 +35,7 @@
 <script>
 export default {
   name: 'MenuItem',
+  inject: ['onClickMenuItem', 'currentClickMenu'],
   props: {
     itemData: {
       type: Object,
@@ -49,15 +53,28 @@ export default {
       expand: false,
     };
   },
+  computed: {
+    active() {
+      return (
+        this.currentClickMenu &&
+        this.currentClickMenu.key === this.itemData.key &&
+        (this.itemData.children || []).length === 0
+      );
+    },
+  },
   methods: {
     clickMenuItem() {
       this.expand = !this.expand;
+      this.onClickMenuItem(this.itemData);
     },
   },
 };
 </script>
 <style lang="postcss" scoped>
 .my-menu-item {
-  @apply flex items-center justify-between h-12 cursor-pointer hover:bg-blue-100 hover:font-bold active:font-bold active:text-white active:bg-blue-600;
+  @apply flex items-center justify-between h-12 cursor-pointer hover:bg-blue-100 hover:font-bold;
+}
+.my-menu-item.active {
+  @apply font-bold text-white bg-blue-600;
 }
 </style>
