@@ -9,6 +9,7 @@ import MainLayout from './layouts/Main.vue';
       name="keyboard_arrow_down_FILL0_wght400_GRAD0_opsz48"
       class="text-red-500"
     />
+    <router-view></router-view>
   </MainLayout>
 </template>
 

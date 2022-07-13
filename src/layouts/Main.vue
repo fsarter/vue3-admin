@@ -16,43 +16,61 @@ export default {
     return {
       menuData: [
         {
-          key: 'Item.1',
-          label: 'Item.1',
-          children: [
-            { key: 'Item.1.1', label: 'Item.1.1', children: [] },
-            {
-              key: 'Item.1.2',
-              label: 'Item.1.2',
-              children: [
-                { key: 'Item.1.2.1', label: 'Item.1.2.1', children: [] },
-                { key: 'Item.1.2.2', label: 'Item.1.2.2', children: [] },
-              ],
-            },
-          ],
+          key: 'home',
+          label: 'Home',
+          children: [],
         },
         {
-          key: 'Item.2',
-          label: 'Item.2',
+          key: 'dashboard',
+          label: 'Dashboard',
+          children: [],
+        },
+        {
+          key: 'settings',
+          label: 'Settings',
           children: [
-            { key: 'Item.2.1', label: 'Item.2.1', children: [] },
-            {
-              key: 'Item.2.2',
-              label: 'Item.2.2',
-              children: [
-                { key: 'Item.2.2.1', label: 'Item.2.2.1', children: [] },
-                { key: 'Item.2.2.2', label: 'Item.2.2.2', children: [] },
-              ],
-            },
+            { key: 'account', label: 'Account', children: [] },
+            { key: 'Notification', label: 'Notification', children: [] },
           ],
         },
-        { key: 'Item.3', label: 'Item.3', children: [] },
-        { key: 'Item.4', label: 'Item.4', children: [] },
       ],
     };
+  },
+  mounted() {
+    this.convertRoutesToMenuData();
   },
   methods: {
     handleMenuClick(menuItemData) {
       console.log('menuItemData===>', menuItemData);
+    },
+    convertRoutesToMenuData() {
+      const parsedNodes = {};
+      const parse = (routes, parentNode) => {
+        for (const route of routes) {
+          const flatPath = parentNode.key
+            ? parentNode.key + '/' + route.path
+            : route.path;
+          if (!parsedNodes[flatPath]) {
+            const node = {
+              key: flatPath,
+              label: route.name,
+              children: [],
+            };
+            if (route.children && route.children.length > 0) {
+              parse(route.children, node);
+              console.log('node===>', node, route.children);
+            }
+            parsedNodes[flatPath] = node;
+            parentNode.children.push(node);
+          } else {
+            parentNode.children.push(parsedNodes[flatPath]);
+          }
+        }
+      };
+      const roots = { children: [] };
+      console.log('===>routes===>', this.$router.routes);
+      parse(this.$router.getRoutes(), roots);
+      console.log('===>', parsedNodes, roots);
     },
   },
 };
