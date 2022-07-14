@@ -14,63 +14,38 @@ export default {
   components: { NavBar, Menu },
   data() {
     return {
-      menuData: [
-        {
-          key: 'home',
-          label: 'Home',
-          children: [],
-        },
-        {
-          key: 'dashboard',
-          label: 'Dashboard',
-          children: [],
-        },
-        {
-          key: 'settings',
-          label: 'Settings',
-          children: [
-            { key: 'account', label: 'Account', children: [] },
-            { key: 'Notification', label: 'Notification', children: [] },
-          ],
-        },
-      ],
+      menuData: [],
     };
   },
   mounted() {
-    this.convertRoutesToMenuData();
+    this.menuData = this.convertRoutesToMenuData(this.$router.options.routes);
   },
   methods: {
     handleMenuClick(menuItemData) {
-      console.log('menuItemData===>', menuItemData);
+      if (!menuItemData.children || menuItemData.children.length === 0) {
+        this.$router.push(menuItemData.key);
+      }
     },
-    convertRoutesToMenuData() {
-      const parsedNodes = {};
-      const parse = (routes, parentNode) => {
-        for (const route of routes) {
-          const flatPath = parentNode.key
-            ? parentNode.key + '/' + route.path
-            : route.path;
-          if (!parsedNodes[flatPath]) {
-            const node = {
-              key: flatPath,
-              label: route.name,
-              children: [],
-            };
-            if (route.children && route.children.length > 0) {
-              parse(route.children, node);
-              console.log('node===>', node, route.children);
-            }
-            parsedNodes[flatPath] = node;
-            parentNode.children.push(node);
-          } else {
-            parentNode.children.push(parsedNodes[flatPath]);
-          }
+    convertRoutesToMenuData(routes, parentNormalizedPath) {
+      const parsedNodes = [];
+      for (const route of routes) {
+        const normalizedPath = parentNormalizedPath
+          ? parentNormalizedPath + '/' + route.path
+          : route.path;
+        const node = {
+          key: normalizedPath,
+          label: route.name,
+          children: [],
+        };
+        if (route.children && route.children.length > 0) {
+          node.children = this.convertRoutesToMenuData(
+            route.children,
+            normalizedPath
+          );
         }
-      };
-      const roots = { children: [] };
-      console.log('===>routes===>', this.$router.routes);
-      parse(this.$router.getRoutes(), roots);
-      console.log('===>', parsedNodes, roots);
+        parsedNodes.push(node);
+      }
+      return parsedNodes;
     },
   },
 };

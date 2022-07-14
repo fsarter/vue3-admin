@@ -1,15 +1,16 @@
 <script setup>
 import MainLayout from './layouts/Main.vue';
+import BreadCrumb from './components/BreadCrumb.vue';
 </script>
 
 <template>
   <MainLayout>
-    <h1 class="underline text-red-500 text-3xl">Main Layout</h1>
-    <SvgIcon
-      name="keyboard_arrow_down_FILL0_wght400_GRAD0_opsz48"
-      class="text-red-500"
-    />
-    <router-view></router-view>
+    <div class="flex w-full h-full flex-col p-4 gap-4">
+      <BreadCrumb class="font-bold border-b"></BreadCrumb>
+      <div class="flex">
+        <router-view></router-view>
+      </div>
+    </div>
   </MainLayout>
 </template>
 
