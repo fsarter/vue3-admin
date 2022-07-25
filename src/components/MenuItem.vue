@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="`my-menu-item ${active ? 'active' : ''}`"
+    :class="`my-menu-item ${active ? 'active' : ''} px-4`"
     @click="clickMenuItem()"
   >
     <div class="flex">

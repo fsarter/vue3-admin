@@ -2,7 +2,7 @@
   <NavBar />
   <div class="flex h-full">
     <Menu @click-menu="handleMenuClick" :menu-data="menuData" />
-    <div class="flex w-full justify-center items-center border">
+    <div class="flex w-full justify-center items-center border overflow-hidden">
       <slot />
     </div>
   </div>
