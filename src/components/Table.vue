@@ -1,6 +1,6 @@
 <template>
+  <slot v-if="false"></slot>
   <div class="overflow-auto">
-    <slot v-if="false"></slot>
     <table>
       <TableHeader
         :columns-data="columnsData"
