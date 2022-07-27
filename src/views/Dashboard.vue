@@ -21,8 +21,11 @@
       <TableColumn prop="column3" label="Column8" />
       <TableColumn prop="column3" label="Column9" />
       <TableColumn prop="column3" label="Column10" />
-      <TableColumn label="Operations" fixed>
-        <button>edit</button>|<button>delete</button>
+      <TableColumn label="Operations" fixed min-width="48">
+        <template #default="row">
+          <button class="btn-primary" @click="rowEdit(row)">edit</button
+          >|<button class="btn-danger" @click="rowDelete(row)">delete</button>
+        </template>
       </TableColumn>
     </Table>
   </div>
@@ -59,6 +62,12 @@ export default {
   methods: {
     selectChange(eventType, rowData) {
       console.log('eventType, rowData===>', eventType, rowData);
+    },
+    rowEdit(row) {
+      console.log('We will edit row:', row);
+    },
+    rowDelete(row) {
+      console.log('We will delete row:', row);
     },
   },
 };
