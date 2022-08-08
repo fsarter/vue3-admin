@@ -33,31 +33,17 @@
 <script>
 import Table from '../components/Table.vue';
 import TableColumn from '../components/TableColumn.vue';
+import http from '../utils/http';
 export default {
   components: { Table, TableColumn },
   data() {
     return {
-      tableData: [
-        {
-          id: 'Row1',
-          column1: 'Value1.1',
-          column2: 'Value1.2',
-          column3: 'Value1.3',
-        },
-        {
-          id: 'Row2',
-          column1: 'Value2.1',
-          column2: 'Value2.2',
-          column3: 'Value2.3',
-        },
-        {
-          id: 'Row3',
-          column1: 'Value3.1',
-          column2: 'Value3.2',
-          column3: 'Value3.3',
-        },
-      ],
+      tableData: [],
     };
+  },
+  async mounted() {
+    const res = await http.post('/api/table-data/query');
+    this.tableData = res.data;
   },
   methods: {
     selectChange(eventType, rowData) {
