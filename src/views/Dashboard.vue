@@ -33,17 +33,17 @@
 <script>
 import Table from '../components/Table.vue';
 import TableColumn from '../components/TableColumn.vue';
-import http from '../utils/http';
+// import http from '../utils/http';
+import { mapState } from 'pinia';
+import { useTableDataStore } from '../stores';
 export default {
   components: { Table, TableColumn },
-  data() {
-    return {
-      tableData: [],
-    };
+  computed: {
+    ...mapState(useTableDataStore, ['tableData']),
   },
-  async mounted() {
-    const res = await http.post('/api/table-data/query');
-    this.tableData = res.data;
+  mounted() {
+    const tableDataStore = useTableDataStore();
+    tableDataStore.query();
   },
   methods: {
     selectChange(eventType, rowData) {
