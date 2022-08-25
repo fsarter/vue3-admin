@@ -62,6 +62,14 @@ export default {
       );
     },
   },
+  mounted() {
+    if (window.location.pathname.startsWith(this.itemData.key)) {
+      this.expand = true;
+    }
+    if (window.location.pathname === this.itemData.key) {
+      this.onClickMenuItem(this.itemData);
+    }
+  },
   methods: {
     clickMenuItem() {
       this.expand = !this.expand;
